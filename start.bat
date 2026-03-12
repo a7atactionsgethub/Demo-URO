@@ -7,41 +7,33 @@ echo   UROSENSE - Starting App...
 echo  =============================
 echo.
 
-:: Install backend dependencies
 echo [1/4] Installing backend dependencies...
-cd backend
-npm install --silent
-cd ..
+cd /d %~dp0backend
+call npm install --silent
+cd /d %~dp0
 
-:: Install frontend dependencies
 echo [2/4] Installing frontend dependencies...
-cd frontend
-npm install --silent
-cd ..
+cd /d %~dp0frontend
+call npm install --silent
+cd /d %~dp0
 
-:: Start backend in a new terminal window
-echo [3/4] Starting backend server...
-start "UroSense Backend" cmd /k "cd backend && node src/index.js"
+echo [3/4] Starting backend...
+start "UroSense Backend" cmd /k "cd /d %~dp0backend && node src/index.js"
 
-:: Wait 2 seconds for backend to boot
-timeout /t 2 /nobreak >nul
+echo Waiting for backend to boot...
+timeout /t 3 /nobreak >nul
 
-:: Start frontend in a new terminal window
 echo [4/4] Starting frontend...
-start "UroSense Frontend" cmd /k "cd frontend && npm run dev"
+start "UroSense Frontend" cmd /k "cd /d %~dp0frontend && npm run dev"
 
-:: Wait for frontend to boot then open browser
-timeout /t 4 /nobreak >nul
+echo Waiting for frontend to boot...
+timeout /t 6 /nobreak >nul
 
 echo.
-echo  =============================
-echo   Opening app in browser...
-echo  =============================
-echo.
-
+echo Opening browser...
 start http://localhost:5173
 
-echo  App is running!
+echo.
+echo  App is running at http://localhost:5173
 echo  Close the Backend and Frontend windows to stop the app.
 echo.
-pause
