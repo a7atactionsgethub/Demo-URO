@@ -64,12 +64,6 @@ async function init() {
     alert_reasons TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (patient_id) REFERENCES patients(id)
   )`);
-  db.run(`CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL, email TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL, role TEXT DEFAULT 'doctor',
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-  )`);
   persist();
 
   const count = get("SELECT COUNT(*) as count FROM patients");
