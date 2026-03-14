@@ -3,7 +3,10 @@ const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
 
-const DB_PATH = path.resolve(process.env.DB_PATH || "./src/db/iot.db");
+const isVercel = process.env.VERCEL === "1";
+const DB_PATH = isVercel 
+  ? "/tmp/iot.db" 
+  : path.resolve(process.env.DB_PATH || "./src/db/iot.db");
 
 let db;
 
